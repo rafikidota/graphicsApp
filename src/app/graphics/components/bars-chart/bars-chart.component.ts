@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType, ChartData, ChartEvent } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -7,6 +7,18 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './bars-chart.component.html'
 })
 export class BarsChartComponent implements OnInit {
+
+  @Input() line: boolean = false;
+  @Input() barChartData: ChartData<'bar'> = {
+    labels: [
+      //'2006', '2007', '2008', '2009', '2010', '2011', '2012'
+    ],
+    datasets: [
+      // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A', backgroundColor: '#003CFF', hoverBackgroundColor: 'red', borderColor: '#003CFF' },
+      // { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B', backgroundColor: '#E038D2', hoverBackgroundColor: 'red', borderColor: '#E038D2' },
+      // { data: [33, 74, 93, 42, 26, 44, 19], label: 'Series C', backgroundColor: '#0DA3FF', hoverBackgroundColor: 'red', borderColor: '#0DA3FF' }
+    ]
+  };
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   public barChartOptions: ChartConfiguration['options'] = {
@@ -14,14 +26,7 @@ export class BarsChartComponent implements OnInit {
   };
   public barChartType: ChartType = 'bar';
 
-  public barChartData: ChartData<'bar'> = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-    datasets: [
-      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A',backgroundColor:'#003CFF',hoverBackgroundColor:'red' },
-      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B',backgroundColor:'#E038D2',hoverBackgroundColor:'red' },
-      { data: [33, 74, 93, 42, 26, 44, 19], label: 'Series C',backgroundColor:'#0DA3FF',hoverBackgroundColor:'red' }
-    ]
-  };
+
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
@@ -64,10 +69,13 @@ export class BarsChartComponent implements OnInit {
 
     this.chart?.update();
   }
-  
+
   constructor() { }
 
   ngOnInit(): void {
+    if (this.line) {
+      this.barChartType = 'line';
+    }
   }
 
 }

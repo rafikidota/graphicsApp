@@ -2,9 +2,10 @@
 <hr>
 <div class="row">
     <div class="col-md-6">
-        <app-bars-chart></app-bars-chart>
+        <app-bars-chart [line]="true"
+                        [barChartData]="productData"></app-bars-chart>
     </div>
     <div class="col-md-6">
-        <app-bars-chart></app-bars-chart>
+        <app-bars-chart [barChartData]="providersData"></app-bars-chart>
     </div>
 </div>
